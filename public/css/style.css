@@ -1,0 +1,14 @@
+.sampul {
+  width: 70px;
+  height: 100px;
+}
+
+.card-sampul {
+  height: 200px;
+  width: 180px;
+  object-fit: cover;
+  object-position: center;
+}
+.table > tbody > tr > * {
+  vertical-align: middle;
+}
