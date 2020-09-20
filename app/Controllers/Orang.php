@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Database\Seeder;
 use Config\Services;
+use CodeIgniter\I18n\Time;
 
 class Orang extends BaseController
 {
@@ -13,6 +14,7 @@ class Orang extends BaseController
 
     public function __construct()
     {
+        // date_default_timezone_set('Asia/Jakarta');
 
         // $this->orangModel = new OrangModel();
         $this->orangModel = new \App\Models\OrangModel();
@@ -20,6 +22,7 @@ class Orang extends BaseController
 
     public function index()
     {
+
         $currentPage = $this->request->getVar('page_orang') ? $this->request->getVar('page_orang') : 1;
         $numberPage = 10;
         $keyword = $this->request->getVar('keyword');
@@ -82,5 +85,58 @@ class Orang extends BaseController
 
         $this->session->setFlashdata('pesan', 'Data Orang Berhasil Ditambahkan');
         return redirect()->to('/orang');
+    }
+
+    public function edit($id)
+    {
+
+        $orang = $this->orangModel->find($id);
+
+        $data = [
+            'title' => 'Edit Data Orang',
+            'orang' => $orang,
+            'validation' => \Config\Services::validation(),
+            'session' => $this->session
+        ];
+
+        return view('orang/edit', $data);
+    }
+
+
+    public function update()
+    {
+
+        if (!$this->validate([
+            'nama' => [
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => 'Data {field} Harus diisi!'
+                ]
+            ],
+            'alamat' => [
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => 'Data {field} Harus diisi!'
+                ]
+            ]
+
+        ])) {
+            return redirect()->to('/orang/edit/' . $this->request->getVar('id'))->withInput();
+        } else {
+
+            // $this->orangModel->update($this->request->getVar('id'), [
+
+            //     'nama' => $this->request->getVar('nama'),
+            //     'alamat' => $this->request->getVar('alamat')
+            // ]);
+            $this->orangModel->save([
+                'id' => $this->request->getVar('id'),
+                'nama' => $this->request->getVar('nama'),
+                'alamat' => $this->request->getVar('alamat')
+            ]);
+            $this->session->setFlashData('pesan', 'Data Orang Berhasil Diubah!');
+
+            return redirect()->to('/orang');
+        }
     }
 }

@@ -42,6 +42,7 @@
                             </td>
                             <td><?= $o['alamat'] ?></td>
                             <td>
+                                <a class="btn btn-warning" href="/orang/edit/<?= $o['id'] ?>">Edit</a>
                                 <a class="btn btn-success" href="">Detail</a>
                             </td>
                         </tr>

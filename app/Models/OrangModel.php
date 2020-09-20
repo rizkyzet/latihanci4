@@ -8,7 +8,7 @@ class OrangModel extends Model
 {
 
     protected $table = 'orang';
-    protected $useTimeStamps = true;
+    protected $useTimestamps = true;
     protected $allowedFields = ['nama', 'alamat'];
 
     public function search($keyword)
