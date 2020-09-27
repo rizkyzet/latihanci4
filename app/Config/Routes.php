@@ -36,6 +36,8 @@ $routes->get('/komik/create', 'Komik::create');
 $routes->get('/komik/delete/(:segment)', function () {
 	throw new \CodeIgniter\Exceptions\PageNotFoundException();
 });
+$routes->get('/komik/edit/(:segment)', 'Komik::edit/$1');
+$routes->post('/komik/change/', 'Komik::update');
 $routes->delete('/komik/(:num)', 'Komik::delete/$1');
 
 /**

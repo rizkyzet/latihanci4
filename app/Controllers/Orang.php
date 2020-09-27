@@ -22,7 +22,10 @@ class Orang extends BaseController
 
     public function index()
     {
+        $time = Time::parse('March 9, 2016 12:00:00', 'America/Chicago');
 
+        echo $time->humanize();
+        die;
         $currentPage = $this->request->getVar('page_orang') ? $this->request->getVar('page_orang') : 1;
         $numberPage = 10;
         $keyword = $this->request->getVar('keyword');
